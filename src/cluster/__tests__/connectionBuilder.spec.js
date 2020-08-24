@@ -98,4 +98,22 @@ describe('Cluster > ConnectionBuilder', () => {
       'Failed to connect: expected brokers array and got nothing'
     )
   })
+
+  it('returns a promise if brokers is function', async () => {
+    const builder = connectionBuilder({
+      socketFactory,
+      brokers: () => ['host.test:7777'],
+      ssl,
+      sasl,
+      clientId,
+      connectionTimeout,
+      retry,
+      logger,
+    })
+
+    const connection = await builder.build()
+    expect(connection).toBeInstanceOf(Connection)
+    expect(connection.host).toBe('host.test')
+    expect(connection.port).toBe(7777)
+  })
 })
