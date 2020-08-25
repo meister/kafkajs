@@ -83,11 +83,12 @@ module.exports = class Broker {
   async connect() {
     try {
       await this.lock.acquire()
+      this.connection = await this.connection
+
       if (this.isConnected()) {
         return
       }
 
-      this.connection = await this.connection
       this.brokerAddress = `${this.connection.host}:${this.connection.port}`
 
       this.authenticatedAt = null
