@@ -83,6 +83,8 @@ module.exports = class Broker {
   async connect() {
     try {
       await this.lock.acquire()
+      this.connection = await this.connection
+
       if (this.isConnected()) {
         return
       }
