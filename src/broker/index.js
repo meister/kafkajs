@@ -87,7 +87,10 @@ module.exports = class Broker {
         return
       }
 
-      this.connection = await this.connection
+      if (this.connection.then) {
+        this.connection = await this.connection
+      }
+
       this.brokerAddress = `${this.connection.host}:${this.connection.port}`
 
       this.authenticatedAt = null
@@ -138,7 +141,7 @@ module.exports = class Broker {
     this.authenticatedAt = null
 
     if (this.connection.then) {
-      await this.connection
+      this.connection = await this.connection
     }
 
     await this.connection.disconnect()

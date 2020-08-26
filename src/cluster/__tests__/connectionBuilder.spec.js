@@ -102,7 +102,7 @@ describe('Cluster > ConnectionBuilder', () => {
   it('returns a promise if brokers is function', async () => {
     const builder = connectionBuilder({
       socketFactory,
-      brokers: () => ['host.test:7777'],
+      discovery: () => ({ brokers: ['host.test:7777'] }),
       ssl,
       sasl,
       clientId,

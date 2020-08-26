@@ -24,6 +24,7 @@ const DEFAULT_METADATA_MAX_AGE = 300000
 module.exports = class Client {
   constructor({
     brokers,
+    discovery,
     ssl,
     sasl,
     clientId,
@@ -53,6 +54,7 @@ module.exports = class Client {
         retry: this[PRIVATE.CLUSTER_RETRY],
         offsets: this[PRIVATE.OFFSETS],
         socketFactory,
+        discovery,
         brokers,
         ssl,
         sasl,

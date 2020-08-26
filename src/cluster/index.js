@@ -42,6 +42,7 @@ module.exports = class Cluster {
   constructor({
     logger: rootLogger,
     socketFactory,
+    discovery,
     brokers,
     ssl,
     sasl,
@@ -67,6 +68,7 @@ module.exports = class Cluster {
       logger: rootLogger,
       instrumentationEmitter,
       socketFactory,
+      discovery,
       brokers,
       ssl,
       sasl,
