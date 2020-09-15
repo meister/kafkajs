@@ -14,16 +14,13 @@ export class Kafka {
   logger(): Logger
 }
 
-export interface DiscoveryResult {
-  brokers: KafkaConfig["brokers"]
-  sasl?: SASLOptions
-}
-export type DiscoveryFunction = () => Promise<DiscoveryResult>;
+export type BrokersFunction = () => Promise<string[]>;
+export type SaslFunction = () => Promise<SASLOptions>;
 
 export interface KafkaConfig {
-  brokers: string[] | DiscoveryFunction
+  brokers: string[] | BrokersFunction
   ssl?: tls.ConnectionOptions | boolean
-  sasl?: SASLOptions
+  sasl?: SASLOptions | SaslFunction
   clientId?: string
   connectionTimeout?: number
   authenticationTimeout?: number
@@ -457,8 +454,11 @@ export type RecordMetadata = {
   topicName: string
   partition: number
   errorCode: number
-  offset: string
-  timestamp: string
+  offset?: string
+  timestamp?: string
+  baseOffset?: string
+  logAppendTime?: string
+  logStartOffset?: string
 }
 
 export interface TopicMessages {
